@@ -9,8 +9,8 @@
 body {
     color: white;
     background-color: rgb(45, 116, 187);
-    padding: 1rem;
-    height: 100vh;
+    padding: 2rem 0;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -18,7 +18,7 @@ body {
 }
 
 .searchBar {
-    margin: auto;
+    margin: 0 auto;
 }
 
 input {
@@ -43,7 +43,10 @@ input[type="submit"] {
 }
 
 .weatherInfo {
-    height: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .currentWeather {
@@ -58,11 +61,11 @@ input[type="submit"] {
     align-items: center;
 }
 
-.cityName {
+.currentWeather .cityName {
     font-size: 1.8rem;
 }
 
-.temp {
+.currentWeather .temp {
     font-size: 5rem;
 }
 
@@ -70,7 +73,7 @@ input[type="submit"] {
     content: "°";
 }
 
-.weather, .infoRow {
+.currentWeather .weather, .infoRow {
     opacity: 0.85;
 }
 
@@ -103,7 +106,36 @@ input[type="submit"] {
     content: "L: ";
 }
 
-.footer {
+.weatherForecast {
     margin: auto;
+    width: max-content;
+    background-color: rgba(0, 0, 0, 20%);
+    padding: 1rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.forecastBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    align-items: center;
+}
+
+.weatherForecast .time {
+    font-size: 0.9rem;
+}
+
+.weatherForecast .temp {
+    font-size: 1.5rem;
+}
+
+.weatherForecast .windSpeed,
+.weatherForecast .humidity {
+    font-size: 0.8rem;
+}
+
+.footer {
+    margin: 0 auto;
     font-size: 0.9rem;
 }
