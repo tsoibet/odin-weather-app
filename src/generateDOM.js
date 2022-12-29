@@ -1,5 +1,5 @@
-import getCurrentWeather from './weatherApi';
-import displayCurrentWeather from './displayDOM';
+import getWeatherInfo from './weatherApi';
+import displayWeatherInfo from './displayDOM';
 
 export default function generateHomepage() {
   const body = document.querySelector('body');
@@ -24,8 +24,9 @@ function generateSearchBar(parent) {
   const searchForm = document.createElement('form');
   searchForm.addEventListener('submit', (event) => {
     if (searchForm.checkValidity()) {
-      getCurrentWeather(searchBox.value)
-        .then((data) => displayCurrentWeather(data));
+      console.log('Button Clicked!');
+      getWeatherInfo(searchBox.value)
+        .then((data) => displayWeatherInfo(data));
     } else {
       // Err msg
     }
@@ -94,4 +95,8 @@ function generateWeatherInfo(parent) {
   currentWeather.appendChild(dayTemp);
 
   parent.appendChild(currentWeather);
+
+  const weatherForecast = document.createElement('div');
+  weatherForecast.classList.add('weatherForecast');
+  parent.appendChild(weatherForecast);
 }
