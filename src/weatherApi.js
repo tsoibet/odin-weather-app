@@ -37,7 +37,7 @@ function processData(dataArray) {
   for (let i = 0; i < 6; i += 1) {
     const dateObject = new Date((dataArray[1].list[i].dt + dataArray[1].city.timezone) * 1000);
     const object = {
-      localTime: hour24to12(dateObject.getUTCHours()),
+      localTime: dateObject.getUTCHours(),
       temp: dataArray[1].list[i].main.temp,
       weather: dataArray[1].list[i].weather[0].main,
       windSpeed: dataArray[1].list[i].wind.speed,
@@ -48,12 +48,4 @@ function processData(dataArray) {
   console.log('Processed forecast: ', forecastObjectArray);
 
   return [currentObject, forecastObjectArray];
-}
-
-function hour24to12(hour) {
-  const end = (hour >= 12) ? 'PM' : 'AM';
-  if (hour !== 12) {
-    hour %= 12;
-  }
-  return hour + end;
 }
