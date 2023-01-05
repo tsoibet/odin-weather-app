@@ -1,4 +1,4 @@
-import generateHomepage from './homepageDOM';
+import renderHomepage from './homepageDOM';
 import './styles.css';
 
-generateHomepage();
+renderHomepage();

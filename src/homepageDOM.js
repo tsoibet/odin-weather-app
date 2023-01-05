@@ -2,7 +2,7 @@ import getWeatherInfo from './weatherApi';
 
 const initialLocation = 'Tokyo';
 
-export default function generateHomepage() {
+export default function renderHomepage() {
   const body = document.querySelector('body');
 
   const searchBar = document.createElement('div');
