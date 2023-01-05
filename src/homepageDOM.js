@@ -8,12 +8,36 @@ export default function renderHomepage() {
   const searchBar = document.createElement('div');
   searchBar.classList.add('searchBar');
 
+  const toggleSwitch = document.createElement('div');
+  toggleSwitch.classList.add('toggleSwitch');
+  toggleSwitch.addEventListener('click', () => {
+    toggleUnit();
+    const city = document.querySelector('.weatherInfo .cityName').textContent;
+    getWeatherInfo(city, window.unit)
+      .then((data) => renderWeatherInfo(data));
+  });
+  const toggleButton = document.createElement('div');
+  toggleButton.classList.add('toggleButton');
+  toggleSwitch.appendChild(toggleButton);
+  const cToggle = document.createElement('div');
+  cToggle.textContent = '°C';
+  cToggle.classList.add('toggle');
+  toggleSwitch.appendChild(cToggle);
+  const fToggle = document.createElement('div');
+  fToggle.textContent = '°F';
+  fToggle.classList.add('toggle');
+  toggleSwitch.appendChild(fToggle);
+  body.appendChild(toggleSwitch);
+
   const searchForm = document.createElement('form');
   searchForm.addEventListener('submit', (event) => {
     if (searchForm.checkValidity()) {
       console.log('Button Clicked!');
-      getWeatherInfo(searchBox.value)
-        .then((data) => renderWeatherInfo(data));
+      getWeatherInfo(searchBox.value, window.unit)
+        .then((data) => {
+          renderWeatherInfo(data);
+          searchBox.value = '';
+        });
     } else {
       // Err msg
     }
@@ -46,7 +70,7 @@ export default function renderHomepage() {
   weatherForecast.classList.add('weatherForecast');
   weatherInfo.appendChild(weatherForecast);
 
-  getWeatherInfo(initialLocation)
+  getWeatherInfo(initialLocation, window.unit)
     .then((data) => renderWeatherInfo(data));
   body.appendChild(weatherInfo);
 
@@ -73,7 +97,13 @@ function renderCurrentWeather(data) {
   const temp = document.createElement('div');
   temp.classList.add('temp');
   temp.classList.add('degree');
-  temp.textContent = data.temp.toFixed(1);
+  if (window.unit === 'metric') {
+    temp.classList.add('metric');
+    temp.textContent = data.temp.toFixed(1);
+  } else if (window.unit === 'imperial') {
+    temp.classList.add('imperial');
+    temp.textContent = data.temp.toFixed();
+  }
   currentWeather.appendChild(temp);
 
   const weather = document.createElement('div');
@@ -85,6 +115,11 @@ function renderCurrentWeather(data) {
   otherInfo.classList.add('infoRow');
   const windSpeed = document.createElement('div');
   windSpeed.classList.add('windSpeed');
+  if (window.unit === 'metric') {
+    windSpeed.classList.add('metric');
+  } else if (window.unit === 'imperial') {
+    windSpeed.classList.add('imperial');
+  }
   windSpeed.textContent = data.windSpeed.toFixed();
   otherInfo.appendChild(windSpeed);
   const humidity = document.createElement('div');
@@ -98,12 +133,24 @@ function renderCurrentWeather(data) {
   const maxTemp = document.createElement('div');
   maxTemp.classList.add('maxTemp');
   maxTemp.classList.add('degree');
-  maxTemp.textContent = data.maxTemp.toFixed(1);
+  if (window.unit === 'metric') {
+    maxTemp.classList.add('metric');
+    maxTemp.textContent = data.maxTemp.toFixed(1);
+  } else if (window.unit === 'imperial') {
+    maxTemp.classList.add('imperial');
+    maxTemp.textContent = data.maxTemp.toFixed();
+  }
   dayTemp.appendChild(maxTemp);
   const minTemp = document.createElement('div');
   minTemp.classList.add('minTemp');
   minTemp.classList.add('degree');
-  minTemp.textContent = data.minTemp.toFixed(1);
+  if (window.unit === 'metric') {
+    minTemp.classList.add('metric');
+    minTemp.textContent = data.minTemp.toFixed(1);
+  } else if (window.unit === 'imperial') {
+    minTemp.classList.add('imperial');
+    minTemp.textContent = data.minTemp.toFixed();
+  }
   dayTemp.appendChild(minTemp);
   currentWeather.appendChild(dayTemp);
 }
@@ -124,7 +171,13 @@ function renderWeatherForecast(data) {
     const temp = document.createElement('div');
     temp.classList.add('temp');
     temp.classList.add('degree');
-    temp.textContent = item.temp;
+    if (window.unit === 'metric') {
+      temp.classList.add('metric');
+      temp.textContent = item.temp.toFixed(1);
+    } else if (window.unit === 'imperial') {
+      temp.classList.add('imperial');
+      temp.textContent = item.temp.toFixed();
+    }
     forecast.appendChild(temp);
 
     const weather = document.createElement('div');
@@ -134,7 +187,12 @@ function renderWeatherForecast(data) {
 
     const windSpeed = document.createElement('div');
     windSpeed.classList.add('windSpeed');
-    windSpeed.textContent = item.windSpeed;
+    if (window.unit === 'metric') {
+      windSpeed.classList.add('metric');
+    } else if (window.unit === 'imperial') {
+      windSpeed.classList.add('imperial');
+    }
+    windSpeed.textContent = item.windSpeed.toFixed();
     forecast.appendChild(windSpeed);
 
     const humidity = document.createElement('div');
@@ -152,4 +210,17 @@ function hour24to12(hour) {
     hour %= 12;
   }
   return hour + end;
+}
+
+function toggleUnit() {
+  const toggleButton = document.querySelector('.toggleButton');
+  if (window.unit === 'imperial') {
+    window.unit = 'metric';
+    if (toggleButton.classList.contains('imperial')) {
+      toggleButton.classList.remove('imperial');
+    }
+  } else {
+    window.unit = 'imperial';
+    toggleButton.classList.add('imperial');
+  }
 }

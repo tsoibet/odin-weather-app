@@ -1,29 +1,30 @@
 const API_KEY = 'd788732bd839cde5cbf83ee69d3ad8ff';
 
-export default async function getWeatherInfo(cityName) {
+export default async function getWeatherInfo(cityName, unit) {
   console.log('Start fetching...');
-  const data = await Promise.all([getCurrentWeather(cityName), getWeatherForecast(cityName)]);
-  console.log('Done fetching. ', data);
-  return processData(data);
+  const data = await Promise.all([getCurrentWeather(cityName, unit), getWeatherForecast(cityName, unit)]);
+  console.log('Done fetching.');
+  return processData(data, unit);
 }
 
-async function getCurrentWeather(cityName) {
-  const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${API_KEY}&units=metric`);
+async function getCurrentWeather(cityName, unit) {
+  const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${API_KEY}&units=${unit}`);
   const data = await response.json();
   console.log('Current: ', data);
   return data;
 }
 
-async function getWeatherForecast(cityName) {
-  const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${API_KEY}&units=metric`);
+async function getWeatherForecast(cityName, unit) {
+  const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${API_KEY}&units=${unit}`);
   const data = await response.json();
   console.log('Forecast: ', data);
   return data;
 }
 
-function processData(dataArray) {
+function processData(dataArray, unit) {
   const currentObject = {
     cityName: dataArray[0].name,
+    displayUnit: unit,
     temp: dataArray[0].main.temp,
     weather: dataArray[0].weather[0].main,
     windSpeed: dataArray[0].wind.speed,
