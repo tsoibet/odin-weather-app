@@ -17,6 +17,40 @@ body {
     gap: 2rem;
 }
 
+.toggleSwitch {
+    position: fixed;
+    right: 2rem;
+    width: 4.2rem;
+    height: 2rem;
+    border-radius: 1rem;
+    background-color: rgba(0, 0, 0, 0.3);
+    outline: solid 0.2rem white;
+    display: flex;
+    gap: 0.2rem;
+    justify-content: space-evenly;
+    align-items: center;
+    cursor: pointer;
+}
+
+.toggleButton {
+    position: absolute;
+    width: 1.8rem;
+    height: 1.4rem;
+    border-radius: 0.8rem;
+    background-color: white;
+    transform: translateX(-50%);
+    transition: transform ease-in-out 300ms;
+}
+
+.toggleButton.imperial {
+    transform: translateX(50%);
+}
+
+.toggle {
+    z-index: 1;
+    color: black;
+}
+
 .searchBar {
     margin: 0 auto;
 }
@@ -69,8 +103,14 @@ input[type="submit"] {
     font-size: 5rem;
 }
 
-.degree::after {
-    content: "°";
+.degree.metric::after {
+    content: "°C";
+    font-size: 0.6em;
+}
+
+.degree.imperial::after {
+    content: "°F";
+    font-size: 0.6em;
 }
 
 .currentWeather .weather, .infoRow {
@@ -86,8 +126,14 @@ input[type="submit"] {
     content: "Wind: ";
 }
 
-.windSpeed::after {
+.windSpeed.metric::after {
     content: "m/s";
+    font-size: 0.8em;
+}
+
+.windSpeed.imperial::after {
+    content: "mph";
+    font-size: 0.8em;
 }
 
 .humidity::before {
@@ -96,6 +142,7 @@ input[type="submit"] {
 
 .humidity::after {
     content: "%";
+    font-size: 0.8em;
 }
 
 .maxTemp::before {
@@ -104,6 +151,10 @@ input[type="submit"] {
 
 .minTemp::before {
     content: "L: ";
+}
+
+.maxTemp::after, .minTemp::after {
+    content: "°";
 }
 
 .weatherForecast {
