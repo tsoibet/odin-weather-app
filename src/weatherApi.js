@@ -33,6 +33,7 @@ function processData(dataArray, unit) {
     displayUnit: unit,
     temp: dataArray[0].main.temp,
     weather: dataArray[0].weather[0].main,
+    icon: dataArray[0].weather[0].icon,
     windSpeed: dataArray[0].wind.speed,
     humidity: dataArray[0].main.humidity,
     maxTemp: dataArray[0].main.temp_max,
@@ -47,6 +48,7 @@ function processData(dataArray, unit) {
       localTime: dateObject.getUTCHours(),
       temp: dataArray[1].list[i].main.temp,
       weather: dataArray[1].list[i].weather[0].main,
+      icon: dataArray[1].list[i].weather[0].icon,
       windSpeed: dataArray[1].list[i].wind.speed,
       humidity: dataArray[1].list[i].main.humidity,
     };
