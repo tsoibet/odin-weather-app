@@ -88,7 +88,7 @@ input[type="submit"] {
     width: max-content;
     background-color: rgba(0, 0, 0, 20%);
     text-shadow: 0.15rem 0.15rem 0.2rem rgba(0, 0, 0, 0.2);
-    padding: 2rem;
+    padding: 2rem 4rem;
     display: flex;
     flex-direction: column;
     gap: 0.3rem;
@@ -113,13 +113,24 @@ input[type="submit"] {
     font-size: 0.6em;
 }
 
-.currentWeather .weather, .infoRow {
-    opacity: 0.85;
+.currentWeather img {
+    width: 8rem;
+    height: 8rem;
+    margin-top: -0.6rem;
+    margin-bottom: -1.2rem;
+}
+
+.weatherForecast img {
+    width: 4rem;
+    height: 4rem;
+    margin-top: -0.2rem;
+    margin-bottom: -0.2rem;
 }
 
 .infoRow {
     display: flex;
     gap: 0.5rem;
+    opacity: 0.85;
 }
 
 .windSpeed::before {
