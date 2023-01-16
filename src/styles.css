@@ -187,11 +187,14 @@ input[type="submit"] {
 }
 
 .error {
-    padding: 2rem;
-    background-color: rgba(0, 0, 0, 20%);
     color: white;
     font-size: 1.2rem;
-    text-shadow: 0.15rem 0.15rem 0.15rem rgba(0, 0, 0, 0.1);
+    text-shadow: 0.15rem 0.15rem 0.2rem rgba(0, 0, 0, 0.2);
+}
+
+.error.message {
+    font-size: 0.8rem;
+    text-align: center;
 }
 
 .footer {
