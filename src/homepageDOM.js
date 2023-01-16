@@ -34,7 +34,6 @@ export default function renderHomepage() {
   const searchForm = document.createElement('form');
   searchForm.addEventListener('submit', (event) => {
     if (searchForm.checkValidity()) {
-      console.log('Button Clicked!');
       displayLoading();
       getWeatherInfo(searchBox.value, window.unit)
         .then((data) => renderWeatherInfo(data))
