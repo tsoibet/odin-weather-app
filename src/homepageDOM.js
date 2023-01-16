@@ -52,7 +52,7 @@ export default function renderHomepage() {
   searchBox.placeholder = 'City name';
   searchForm.appendChild(searchBox);
 
-  const searchButton = document.createElement('input');
+  const searchButton = document.createElement('button');
   searchButton.type = 'submit';
   searchForm.appendChild(searchButton);
 
@@ -79,6 +79,12 @@ function renderWeatherInfo(data) {
   clearWeatherInfo();
   renderCurrentWeather(data[0]);
   renderWeatherForecast(data[1]);
+  setTimeout(() => {
+    const currentWeather = document.querySelector('.currentWeather');
+    currentWeather.classList.remove('fadeIn');
+    const weatherForecast = document.querySelector('.weatherForecast');
+    weatherForecast.classList.remove('fadeIn');
+  }, 100);
 }
 
 function clearWeatherInfo() {
@@ -90,6 +96,7 @@ function renderCurrentWeather(data) {
   const weatherInfo = document.querySelector('.weatherInfo');
   const currentWeather = document.createElement('div');
   currentWeather.classList.add('currentWeather');
+  currentWeather.classList.add('fadeIn');
 
   const cityName = document.createElement('div');
   cityName.classList.add('cityName');
@@ -163,6 +170,7 @@ function renderWeatherForecast(data) {
   const weatherInfo = document.querySelector('.weatherInfo');
   const weatherForecast = document.createElement('div');
   weatherForecast.classList.add('weatherForecast');
+  weatherForecast.classList.add('fadeIn');
 
   for (const item of data) {
     const forecast = document.createElement('div');
