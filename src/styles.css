@@ -20,11 +20,11 @@ body {
 .toggleSwitch {
     position: fixed;
     right: 2rem;
-    width: 4.2rem;
-    height: 2rem;
-    border-radius: 1rem;
+    width: 4.5rem;
+    height: 2.2rem;
+    border-radius: 2rem;
+    border: solid 0.15rem white;
     background-color: rgba(0, 0, 0, 0.3);
-    outline: solid 0.2rem white;
     display: flex;
     gap: 0.2rem;
     justify-content: space-evenly;
