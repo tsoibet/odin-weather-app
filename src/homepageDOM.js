@@ -16,9 +16,7 @@ export default function renderHomepage() {
     displayLoading();
     getWeatherInfo(city, window.unit)
       .then((data) => renderWeatherInfo(data))
-      .catch((error) => {
-        renderErrorMessage(error.message);
-      });
+      .catch((error) => renderErrorMessage(error.message));
   });
   const toggleButton = document.createElement('div');
   toggleButton.classList.add('toggleButton');
@@ -39,12 +37,8 @@ export default function renderHomepage() {
       console.log('Button Clicked!');
       displayLoading();
       getWeatherInfo(searchBox.value, window.unit)
-        .then((data) => {
-          renderWeatherInfo(data);
-        })
-        .catch((error) => {
-          renderErrorMessage(error.message);
-        });
+        .then((data) => renderWeatherInfo(data))
+        .catch((error) => renderErrorMessage(error.message));
     }
     searchBox.value = '';
     event.preventDefault();
@@ -73,9 +67,7 @@ export default function renderHomepage() {
   displayLoading();
   getWeatherInfo(initialLocation, window.unit)
     .then((data) => renderWeatherInfo(data))
-    .catch((error) => {
-      renderErrorMessage(error.message);
-    });
+    .catch((error) => renderErrorMessage(error.message));
 
   const footer = document.createElement('div');
   footer.classList.add('footer');
@@ -92,9 +84,6 @@ function renderWeatherInfo(data) {
 function clearWeatherInfo() {
   const weatherInfo = document.querySelector('.weatherInfo');
   weatherInfo.textContent = '';
-  if (weatherInfo.classList.contains('error')) {
-    weatherInfo.classList.remove('error');
-  }
 }
 
 function renderCurrentWeather(data) {
@@ -223,8 +212,17 @@ function renderWeatherForecast(data) {
 function renderErrorMessage(errMsg) {
   clearWeatherInfo();
   const weatherInfo = document.querySelector('.weatherInfo');
-  weatherInfo.textContent = `Oops, something went wrong. Error message: ${errMsg}`;
-  weatherInfo.classList.add('error');
+
+  const error = document.createElement('div');
+  error.classList.add('error');
+  error.textContent = 'Oops, something went wrong. Try again!';
+  weatherInfo.appendChild(error);
+
+  const errorMessage = document.createElement('div');
+  errorMessage.classList.add('error');
+  errorMessage.classList.add('message');
+  errorMessage.textContent = `Error message: ${errMsg}`;
+  weatherInfo.appendChild(errorMessage);
 }
 
 function hour24to12(hour) {
@@ -249,8 +247,8 @@ function toggleUnit() {
 }
 
 function displayLoading() {
+  clearWeatherInfo();
   const weatherInfo = document.querySelector('.weatherInfo');
-  weatherInfo.textContent = '';
   const loading = document.createElement('div');
   loading.classList.add('loading');
   weatherInfo.appendChild(loading);
