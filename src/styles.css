@@ -190,3 +190,24 @@ input[type="submit"] {
     margin: 0 auto;
     font-size: 0.9rem;
 }
+
+.loading {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    border: 0.8rem solid rgba(0, 0, 0, 20%);
+    border-top: 0.8rem solid white;
+    animation: spin 1s linear infinite;
+}
+  
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
