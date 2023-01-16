@@ -72,7 +72,7 @@ export default function renderHomepage() {
 
   displayLoading();
   getWeatherInfo(initialLocation, window.unit)
-    .then((data) => renderWeatherInfo(data));
+    .then((data) => renderWeatherInfo(data))
     .catch((error) => {
       renderErrorMessage(error.message);
     });
