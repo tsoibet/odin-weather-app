@@ -96,6 +96,12 @@ function renderCurrentWeather(data) {
   cityName.textContent = data.cityName;
   currentWeather.appendChild(cityName);
 
+  const weather = document.createElement('div');
+  const icon = new Image();
+  icon.src = `../weatherIcon/${data.icon}.png`;
+  weather.appendChild(icon);
+  currentWeather.appendChild(weather);
+
   const temp = document.createElement('div');
   temp.classList.add('temp');
   temp.classList.add('degree');
@@ -107,11 +113,6 @@ function renderCurrentWeather(data) {
     temp.textContent = data.temp.toFixed();
   }
   currentWeather.appendChild(temp);
-
-  const weather = document.createElement('div');
-  weather.classList.add('weather');
-  weather.textContent = data.weather;
-  currentWeather.appendChild(weather);
 
   const otherInfo = document.createElement('div');
   otherInfo.classList.add('infoRow');
@@ -172,6 +173,12 @@ function renderWeatherForecast(data) {
     time.textContent = hour24to12(item.localTime);
     forecast.appendChild(time);
 
+    const weather = document.createElement('div');
+    const icon = new Image();
+    icon.src = `../weatherIcon/${item.icon}.png`;
+    weather.appendChild(icon);
+    forecast.appendChild(weather);
+
     const temp = document.createElement('div');
     temp.classList.add('temp');
     temp.classList.add('degree');
@@ -183,11 +190,6 @@ function renderWeatherForecast(data) {
       temp.textContent = item.temp.toFixed();
     }
     forecast.appendChild(temp);
-
-    const weather = document.createElement('div');
-    weather.classList.add('weather');
-    weather.textContent = item.weather;
-    forecast.appendChild(weather);
 
     const windSpeed = document.createElement('div');
     windSpeed.classList.add('windSpeed');
