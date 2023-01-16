@@ -1,9 +1,7 @@
 const API_KEY = 'd788732bd839cde5cbf83ee69d3ad8ff';
 
 export default async function getWeatherInfo(cityName, unit) {
-  console.log('Start fetching...');
   const data = await Promise.all([getCurrentWeather(cityName, unit), getWeatherForecast(cityName, unit)]);
-  console.log('Done fetching.');
   return processData(data, unit);
 }
 
@@ -13,7 +11,6 @@ async function getCurrentWeather(cityName, unit) {
     throw new Error(response.statusText);
   }
   const data = await response.json();
-  console.log('Current: ', data);
   return data;
 }
 
@@ -23,7 +20,6 @@ async function getWeatherForecast(cityName, unit) {
     throw new Error(response.statusText);
   }
   const data = await response.json();
-  console.log('Forecast: ', data);
   return data;
 }
 
@@ -39,7 +35,6 @@ function processData(dataArray, unit) {
     maxTemp: dataArray[0].main.temp_max,
     minTemp: dataArray[0].main.temp_min,
   };
-  console.log('Processed current: ', currentObject);
 
   const forecastObjectArray = [];
   for (let i = 0; i < 6; i += 1) {
@@ -54,7 +49,6 @@ function processData(dataArray, unit) {
     };
     forecastObjectArray.push(object);
   }
-  console.log('Processed forecast: ', forecastObjectArray);
 
   return [currentObject, forecastObjectArray];
 }
