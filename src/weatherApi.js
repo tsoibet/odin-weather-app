@@ -9,6 +9,9 @@ export default async function getWeatherInfo(cityName, unit) {
 
 async function getCurrentWeather(cityName, unit) {
   const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${API_KEY}&units=${unit}`);
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
   const data = await response.json();
   console.log('Current: ', data);
   return data;
@@ -16,6 +19,9 @@ async function getCurrentWeather(cityName, unit) {
 
 async function getWeatherForecast(cityName, unit) {
   const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${API_KEY}&units=${unit}`);
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
   const data = await response.json();
   console.log('Forecast: ', data);
   return data;

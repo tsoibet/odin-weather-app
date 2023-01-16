@@ -15,7 +15,10 @@ export default function renderHomepage() {
     const city = document.querySelector('.weatherInfo .cityName').textContent;
     displayLoading();
     getWeatherInfo(city, window.unit)
-      .then((data) => renderWeatherInfo(data));
+      .then((data) => renderWeatherInfo(data))
+      .catch((error) => {
+        renderErrorMessage(error.message);
+      });
   });
   const toggleButton = document.createElement('div');
   toggleButton.classList.add('toggleButton');
@@ -38,11 +41,12 @@ export default function renderHomepage() {
       getWeatherInfo(searchBox.value, window.unit)
         .then((data) => {
           renderWeatherInfo(data);
-          searchBox.value = '';
+        })
+        .catch((error) => {
+          renderErrorMessage(error.message);
         });
-    } else {
-      // Err msg
     }
+    searchBox.value = '';
     event.preventDefault();
   });
 
@@ -69,6 +73,9 @@ export default function renderHomepage() {
   displayLoading();
   getWeatherInfo(initialLocation, window.unit)
     .then((data) => renderWeatherInfo(data));
+    .catch((error) => {
+      renderErrorMessage(error.message);
+    });
 
   const footer = document.createElement('div');
   footer.classList.add('footer');
@@ -77,10 +84,17 @@ export default function renderHomepage() {
 }
 
 function renderWeatherInfo(data) {
-  const weatherInfo = document.querySelector('.weatherInfo');
-  weatherInfo.textContent = '';
+  clearWeatherInfo();
   renderCurrentWeather(data[0]);
   renderWeatherForecast(data[1]);
+}
+
+function clearWeatherInfo() {
+  const weatherInfo = document.querySelector('.weatherInfo');
+  weatherInfo.textContent = '';
+  if (weatherInfo.classList.contains('error')) {
+    weatherInfo.classList.remove('error');
+  }
 }
 
 function renderCurrentWeather(data) {
@@ -204,6 +218,13 @@ function renderWeatherForecast(data) {
     weatherForecast.appendChild(forecast);
     weatherInfo.appendChild(weatherForecast);
   }
+}
+
+function renderErrorMessage(errMsg) {
+  clearWeatherInfo();
+  const weatherInfo = document.querySelector('.weatherInfo');
+  weatherInfo.textContent = `Oops, something went wrong. Error message: ${errMsg}`;
+  weatherInfo.classList.add('error');
 }
 
 function hour24to12(hour) {
