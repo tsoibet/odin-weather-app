@@ -9,13 +9,29 @@
 body {
     color: white;
     background-color: rgb(45, 116, 187);
-    transition: background-color linear 150ms;
+    transition: background-color ease-out 500ms;
     padding: 2rem 0;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     gap: 2rem;
+}
+
+body.clear {
+    background-color: rgb(45, 116, 187);
+}
+
+body.cloud {
+    background-color: rgb(101, 124, 148);
+}
+
+body.rain {
+    background-color: rgb(71, 109, 153);  
+}
+
+body.snow {
+    background-color: rgb(161, 191, 209);
 }
 
 .toggleSwitch {
@@ -81,7 +97,7 @@ input[type="search"] {
 
 button[type="submit"] {
     cursor: pointer;
-    background-color: rgb(15, 72, 141);
+    background-color: rgb(109, 109, 109);
     color: white;
     transition: background-color linear 300ms;
 }
@@ -91,7 +107,7 @@ button[type="submit"]::after {
 }
 
 button[type="submit"]:hover {
-    background-color: rgb(20, 84, 173);
+    background-color: rgb(73, 73, 73);
 }
 
 .weatherInfo {

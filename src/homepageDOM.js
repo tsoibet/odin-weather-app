@@ -164,6 +164,20 @@ function renderCurrentWeather(data) {
   dayTemp.appendChild(minTemp);
   currentWeather.appendChild(dayTemp);
   weatherInfo.appendChild(currentWeather);
+
+  const body = document.querySelector('body');
+  if (body.classList.length) {
+    body.classList.remove(body.classList.item(0));
+  }
+  if (data.weather.includes('Clear')) {
+    body.classList.add('clear');
+  } else if (data.weather.includes('Cloud')) {
+    body.classList.add('cloud');
+  } else if (data.weather.includes('Rain')) {
+    body.classList.add('rain');
+  } else if (data.weather.includes('Snow')) {
+    body.classList.add('snow');
+  }
 }
 
 function renderWeatherForecast(data) {
