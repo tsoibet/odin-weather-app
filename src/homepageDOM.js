@@ -52,7 +52,7 @@ export default function renderHomepage() {
   searchBox.placeholder = 'City name';
   searchForm.appendChild(searchBox);
 
-  const searchButton = document.createElement('input');
+  const searchButton = document.createElement('button');
   searchButton.type = 'submit';
   searchForm.appendChild(searchButton);
 
@@ -79,6 +79,12 @@ function renderWeatherInfo(data) {
   clearWeatherInfo();
   renderCurrentWeather(data[0]);
   renderWeatherForecast(data[1]);
+  setTimeout(() => {
+    const currentWeather = document.querySelector('.currentWeather');
+    currentWeather.classList.remove('fadeIn');
+    const weatherForecast = document.querySelector('.weatherForecast');
+    weatherForecast.classList.remove('fadeIn');
+  }, 100);
 }
 
 function clearWeatherInfo() {
@@ -90,11 +96,18 @@ function renderCurrentWeather(data) {
   const weatherInfo = document.querySelector('.weatherInfo');
   const currentWeather = document.createElement('div');
   currentWeather.classList.add('currentWeather');
+  currentWeather.classList.add('fadeIn');
 
   const cityName = document.createElement('div');
   cityName.classList.add('cityName');
   cityName.textContent = data.cityName;
   currentWeather.appendChild(cityName);
+
+  const weather = document.createElement('div');
+  const icon = new Image();
+  icon.src = `../weatherIcon/${data.icon}.png`;
+  weather.appendChild(icon);
+  currentWeather.appendChild(weather);
 
   const temp = document.createElement('div');
   temp.classList.add('temp');
@@ -107,11 +120,6 @@ function renderCurrentWeather(data) {
     temp.textContent = data.temp.toFixed();
   }
   currentWeather.appendChild(temp);
-
-  const weather = document.createElement('div');
-  weather.classList.add('weather');
-  weather.textContent = data.weather;
-  currentWeather.appendChild(weather);
 
   const otherInfo = document.createElement('div');
   otherInfo.classList.add('infoRow');
@@ -156,12 +164,27 @@ function renderCurrentWeather(data) {
   dayTemp.appendChild(minTemp);
   currentWeather.appendChild(dayTemp);
   weatherInfo.appendChild(currentWeather);
+
+  const body = document.querySelector('body');
+  if (body.classList.length) {
+    body.classList.remove(body.classList.item(0));
+  }
+  if (data.weather.includes('Clear')) {
+    body.classList.add('clear');
+  } else if (data.weather.includes('Cloud')) {
+    body.classList.add('cloud');
+  } else if (data.weather.includes('Rain')) {
+    body.classList.add('rain');
+  } else if (data.weather.includes('Snow')) {
+    body.classList.add('snow');
+  }
 }
 
 function renderWeatherForecast(data) {
   const weatherInfo = document.querySelector('.weatherInfo');
   const weatherForecast = document.createElement('div');
   weatherForecast.classList.add('weatherForecast');
+  weatherForecast.classList.add('fadeIn');
 
   for (const item of data) {
     const forecast = document.createElement('div');
@@ -171,6 +194,12 @@ function renderWeatherForecast(data) {
     time.classList.add('time');
     time.textContent = hour24to12(item.localTime);
     forecast.appendChild(time);
+
+    const weather = document.createElement('div');
+    const icon = new Image();
+    icon.src = `../weatherIcon/${item.icon}.png`;
+    weather.appendChild(icon);
+    forecast.appendChild(weather);
 
     const temp = document.createElement('div');
     temp.classList.add('temp');
@@ -183,11 +212,6 @@ function renderWeatherForecast(data) {
       temp.textContent = item.temp.toFixed();
     }
     forecast.appendChild(temp);
-
-    const weather = document.createElement('div');
-    weather.classList.add('weather');
-    weather.textContent = item.weather;
-    forecast.appendChild(weather);
 
     const windSpeed = document.createElement('div');
     windSpeed.classList.add('windSpeed');

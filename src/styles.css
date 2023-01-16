@@ -9,6 +9,7 @@
 body {
     color: white;
     background-color: rgb(45, 116, 187);
+    transition: background-color ease-out 500ms;
     padding: 2rem 0;
     min-height: 100vh;
     display: flex;
@@ -17,19 +18,41 @@ body {
     gap: 2rem;
 }
 
+body.clear {
+    background-color: rgb(45, 116, 187);
+}
+
+body.cloud {
+    background-color: rgb(101, 124, 148);
+}
+
+body.rain {
+    background-color: rgb(71, 109, 153);  
+}
+
+body.snow {
+    background-color: rgb(161, 191, 209);
+}
+
 .toggleSwitch {
     position: fixed;
     right: 2rem;
-    width: 4.2rem;
-    height: 2rem;
-    border-radius: 1rem;
-    background-color: rgba(0, 0, 0, 0.3);
-    outline: solid 0.2rem white;
+    width: 4.5rem;
+    height: 2.2rem;
+    border-radius: 2rem;
+    border: solid 0.15rem white;
+    background-color: rgba(0, 0, 0, 0.2);
+    transition: background-color linear 150ms;
+    box-shadow: 0.1rem 0.1rem 0.3rem rgba(0, 0, 0, 0.5) inset;
     display: flex;
     gap: 0.2rem;
     justify-content: space-evenly;
     align-items: center;
     cursor: pointer;
+}
+
+.toggleSwitch:hover {
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
 .toggleButton {
@@ -38,8 +61,9 @@ body {
     height: 1.4rem;
     border-radius: 0.8rem;
     background-color: white;
+    box-shadow: 0.1rem 0.1rem 0.2rem rgba(0, 0, 0, 0.3);
     transform: translateX(-50%);
-    transition: transform ease-in-out 300ms;
+    transition: transform ease-in-out 150ms;
 }
 
 .toggleButton.imperial {
@@ -55,9 +79,10 @@ body {
     margin: 0 auto;
 }
 
-input {
+input, button {
     appearance: none;
     border: none;
+    height: 2.4rem;
     padding: 0.5rem 1rem;
 }
 
@@ -70,10 +95,19 @@ input[type="search"] {
     color: black;
 }
 
-input[type="submit"] {
+button[type="submit"] {
     cursor: pointer;
-    background-color: rgb(15, 72, 141);
+    background-color: rgb(109, 109, 109);
     color: white;
+    transition: background-color linear 300ms;
+}
+
+button[type="submit"]::after {
+    content: ">";
+}
+
+button[type="submit"]:hover {
+    background-color: rgb(73, 73, 73);
 }
 
 .weatherInfo {
@@ -83,12 +117,26 @@ input[type="submit"] {
     gap: 1rem;
 }
 
+.currentWeather, .weatherForecast {
+    background-color: rgba(0, 0, 0, 20%);
+    opacity: 100;
+    transition: all linear 500ms;
+    cursor: default;
+}
+
+.currentWeather.fadeIn, .weatherForecast.fadeIn {
+    opacity: 0;
+}
+
+.currentWeather:hover, .weatherForecast:hover {
+    background-color: rgba(0, 0, 0, 15%);
+}
+
 .currentWeather {
     margin: auto;
     width: max-content;
-    background-color: rgba(0, 0, 0, 20%);
     text-shadow: 0.15rem 0.15rem 0.2rem rgba(0, 0, 0, 0.2);
-    padding: 2rem;
+    padding: 2rem 4rem;
     display: flex;
     flex-direction: column;
     gap: 0.3rem;
@@ -113,13 +161,24 @@ input[type="submit"] {
     font-size: 0.6em;
 }
 
-.currentWeather .weather, .infoRow {
-    opacity: 0.85;
+.currentWeather img {
+    width: 8rem;
+    height: 8rem;
+    margin-top: -0.6rem;
+    margin-bottom: -1.2rem;
+}
+
+.weatherForecast img {
+    width: 4rem;
+    height: 4rem;
+    margin-top: -0.2rem;
+    margin-bottom: -0.2rem;
 }
 
 .infoRow {
     display: flex;
     gap: 0.5rem;
+    opacity: 0.85;
 }
 
 .windSpeed::before {
@@ -160,7 +219,6 @@ input[type="submit"] {
 .weatherForecast {
     margin: auto;
     width: max-content;
-    background-color: rgba(0, 0, 0, 20%);
     padding: 1rem;
     display: flex;
     gap: 1rem;
