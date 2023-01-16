@@ -13,6 +13,7 @@ export default function renderHomepage() {
   toggleSwitch.addEventListener('click', () => {
     toggleUnit();
     const city = document.querySelector('.weatherInfo .cityName').textContent;
+    displayLoading();
     getWeatherInfo(city, window.unit)
       .then((data) => renderWeatherInfo(data));
   });
@@ -33,6 +34,7 @@ export default function renderHomepage() {
   searchForm.addEventListener('submit', (event) => {
     if (searchForm.checkValidity()) {
       console.log('Button Clicked!');
+      displayLoading();
       getWeatherInfo(searchBox.value, window.unit)
         .then((data) => {
           renderWeatherInfo(data);
@@ -62,17 +64,11 @@ export default function renderHomepage() {
   const weatherInfo = document.createElement('div');
   weatherInfo.classList.add('weatherInfo');
 
-  const currentWeather = document.createElement('div');
-  currentWeather.classList.add('currentWeather');
-  weatherInfo.appendChild(currentWeather);
+  body.appendChild(weatherInfo);
 
-  const weatherForecast = document.createElement('div');
-  weatherForecast.classList.add('weatherForecast');
-  weatherInfo.appendChild(weatherForecast);
-
+  displayLoading();
   getWeatherInfo(initialLocation, window.unit)
     .then((data) => renderWeatherInfo(data));
-  body.appendChild(weatherInfo);
 
   const footer = document.createElement('div');
   footer.classList.add('footer');
@@ -81,13 +77,16 @@ export default function renderHomepage() {
 }
 
 function renderWeatherInfo(data) {
+  const weatherInfo = document.querySelector('.weatherInfo');
+  weatherInfo.textContent = '';
   renderCurrentWeather(data[0]);
   renderWeatherForecast(data[1]);
 }
 
 function renderCurrentWeather(data) {
-  const currentWeather = document.querySelector('.currentWeather');
-  currentWeather.textContent = '';
+  const weatherInfo = document.querySelector('.weatherInfo');
+  const currentWeather = document.createElement('div');
+  currentWeather.classList.add('currentWeather');
 
   const cityName = document.createElement('div');
   cityName.classList.add('cityName');
@@ -153,11 +152,13 @@ function renderCurrentWeather(data) {
   }
   dayTemp.appendChild(minTemp);
   currentWeather.appendChild(dayTemp);
+  weatherInfo.appendChild(currentWeather);
 }
 
 function renderWeatherForecast(data) {
-  const weatherForecast = document.querySelector('.weatherForecast');
-  weatherForecast.textContent = '';
+  const weatherInfo = document.querySelector('.weatherInfo');
+  const weatherForecast = document.createElement('div');
+  weatherForecast.classList.add('weatherForecast');
 
   for (const item of data) {
     const forecast = document.createElement('div');
@@ -201,6 +202,7 @@ function renderWeatherForecast(data) {
     forecast.appendChild(humidity);
 
     weatherForecast.appendChild(forecast);
+    weatherInfo.appendChild(weatherForecast);
   }
 }
 
@@ -223,4 +225,12 @@ function toggleUnit() {
     window.unit = 'imperial';
     toggleButton.classList.add('imperial');
   }
+}
+
+function displayLoading() {
+  const weatherInfo = document.querySelector('.weatherInfo');
+  weatherInfo.textContent = '';
+  const loading = document.createElement('div');
+  loading.classList.add('loading');
+  weatherInfo.appendChild(loading);
 }
