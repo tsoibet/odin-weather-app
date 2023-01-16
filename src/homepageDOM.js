@@ -13,6 +13,7 @@ export default function renderHomepage() {
   toggleSwitch.addEventListener('click', () => {
     toggleUnit();
     const city = document.querySelector('.weatherInfo .cityName').textContent;
+    displayLoading();
     getWeatherInfo(city, window.unit)
       .then((data) => renderWeatherInfo(data))
       .catch((error) => {
@@ -36,6 +37,7 @@ export default function renderHomepage() {
   searchForm.addEventListener('submit', (event) => {
     if (searchForm.checkValidity()) {
       console.log('Button Clicked!');
+      displayLoading();
       getWeatherInfo(searchBox.value, window.unit)
         .then((data) => {
           renderWeatherInfo(data);
@@ -66,12 +68,14 @@ export default function renderHomepage() {
   const weatherInfo = document.createElement('div');
   weatherInfo.classList.add('weatherInfo');
 
+  body.appendChild(weatherInfo);
+
+  displayLoading();
   getWeatherInfo(initialLocation, window.unit)
-    .then((data) => renderWeatherInfo(data))
+    .then((data) => renderWeatherInfo(data));
     .catch((error) => {
       renderErrorMessage(error.message);
     });
-  body.appendChild(weatherInfo);
 
   const footer = document.createElement('div');
   footer.classList.add('footer');
@@ -242,4 +246,12 @@ function toggleUnit() {
     window.unit = 'imperial';
     toggleButton.classList.add('imperial');
   }
+}
+
+function displayLoading() {
+  const weatherInfo = document.querySelector('.weatherInfo');
+  weatherInfo.textContent = '';
+  const loading = document.createElement('div');
+  loading.classList.add('loading');
+  weatherInfo.appendChild(loading);
 }
