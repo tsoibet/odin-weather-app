@@ -106,7 +106,7 @@ function renderCurrentWeather(data) {
   const icon = new Image();
   // icon.src = `../weatherIcon/${data.icon}.png`;
   // For Github Pages:
-  icon.src = `../main/weatherIcon/${data.icon}.png`;
+  icon.src = `./weatherIcon/${data.icon}.png`;
   weather.appendChild(icon);
   currentWeather.appendChild(weather);
 
@@ -200,7 +200,7 @@ function renderWeatherForecast(data) {
     const icon = new Image();
     // icon.src = `../weatherIcon/${item.icon}.png`;
     // For Github Pages:
-    icon.src = `../main/weatherIcon/${item.icon}.png`;
+    icon.src = `./weatherIcon/${item.icon}.png`;
     weather.appendChild(icon);
     forecast.appendChild(weather);
 
