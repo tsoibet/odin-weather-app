@@ -1,6 +1,8 @@
 # Weather App
 
-### *Note: An API key has been included in this repository for demonstration purpose. Please be aware that this key is publicly available and has no access to sensitive data. I understand that API keys should be stored as environment variables or in configuration files and be excluded from version control system.*
+### Getting Started
+1. Get a free api key at https://openweathermap.org
+2. Enter your key on the [live demo](https://tsoibet.github.io/odin-weather-app/) and try it out
 
 Live demo: https://tsoibet.github.io/odin-weather-app/
 
